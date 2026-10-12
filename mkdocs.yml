@@ -237,7 +237,7 @@ nav:
       - Execute Build Pipeline: HowTo/build_stream/execute_build_pipeline.md
       - Execute Deploy Pipeline: HowTo/build_stream/execute_deploy_pipeline.md
       - Automated Build and Deployment (Cadence): HowTo/build_stream/execute_cadence_pipeline.md
-      - Execute CleanUp Pipeline: Operations/build_stream/cleanup_operations.md
+      - Clean Up BuildStreaM: Operations/build_stream/cleanup_operations.md
     - UTILS:
       - HowTo/utils/index.md
       - Install OS Unattended: HowTo/utils/install_os_unattended.md
@@ -336,7 +336,7 @@ nav:
       - Add Nodes through BuildStreaM: Operations/build_stream/add_nodes.md
       - Update the Catalog: Operations/build_stream/update_catalog.md
       - Retry Pipelines: Operations/build_stream/retry_pipelines.md
-      - Clean Up Image Groups: Operations/build_stream/cleanup_operations.md
+      - Clean Up BuildStreaM: Operations/build_stream/cleanup_operations.md
     - Diagnostics:
       - Log Management: Operations/log_management.md
     - Best Practices Checklist: Operations/best_practices_checklist.md
