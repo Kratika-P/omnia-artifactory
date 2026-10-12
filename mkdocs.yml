@@ -336,6 +336,7 @@ nav:
       - Add Nodes through BuildStreaM: Operations/build_stream/add_nodes.md
       - Update the Catalog: Operations/build_stream/update_catalog.md
       - Retry Pipelines: Operations/build_stream/retry_pipelines.md
+      - Clean Up Image Groups: Operations/build_stream/cleanup_operations.md
     - Diagnostics:
       - Log Management: Operations/log_management.md
     - Best Practices Checklist: Operations/best_practices_checklist.md
