@@ -192,7 +192,7 @@ After the pipeline completes:
 
 - [Execute Deploy Pipeline](execute_deploy_pipeline.md) -- Deploy the built images to cluster nodes
 - [Automate Build and Deployment with Cadence](execute_cadence_pipeline.md) -- Reconcile RPM content and run build and deployment together
-- [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md) -- Remove old Image Groups
+- [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md) -- Remove old Image Groups manually or configure automated cleanup based on age-based retention policies
 
 ## Troubleshooting
 

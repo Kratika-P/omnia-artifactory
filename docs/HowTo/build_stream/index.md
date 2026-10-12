@@ -23,6 +23,8 @@ The infrastructure deployment described on this page prepares these
 workflows. Cadence is optional and disabled by default; the build-only and
 deploy-only pipelines remain independently available.
 
+BuildStreaM also provides an **automated cleanup** feature that periodically evaluates image groups based on age-based retention policies and automatically deletes eligible artifacts. This feature is configured in the `retention` group of `build_stream_config.yml` and runs as an in-process scheduler within the BSM API container. See [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md) for details on both manual and automated cleanup.
+
 Omnia also provides optional AI-assisted skills for catalog generation,
 single-catalog editing, bulk editing, impact analysis, compatibility analysis,
 and catalog comparison. See
