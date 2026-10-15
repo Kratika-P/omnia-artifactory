@@ -4,7 +4,7 @@
 
 BuildStreaM provides two methods for cleaning up image groups: manual cleanup
 through the GitLab pipeline and automated cleanup based on age-based retention
-policies. Both methods remove S3 images and NFS artifacts, and for catalog-mode
+policies. Both methods remove S3 images and artifacts, and for catalog-mode
 images, exact image-group cleanup also removes entries owned by that image group
 from the Image Build Manager global dictionary.
 
@@ -16,14 +16,14 @@ until cleanup is performed.
 ### Manual Cleanup
 
 Use the manual cleanup pipeline to select a specific image group and delete the
-associated job's S3 images and NFS artifacts when the guard blocks a new job or
+associated job's S3 images and artifacts when the guard blocks a new job or
 when an image group is no longer required.
 
 ### Automated Cleanup
 
 The BuildStreaM API includes an automatic cleanup scheduler that evaluates
 image artifacts periodically and deletes those that meet retention criteria.
-The scheduler runs as an asyncio task within the BuildStreaM API container and
+The scheduler runs within the BuildStreaM API container and
 evaluates image groups based on configured age-based retention policies.
 
 !!! warning
@@ -34,15 +34,12 @@ evaluates image groups based on configured age-based retention policies.
 
 - Access to the managed GitLab project.
 - The BuildStreaM API server and PostgreSQL service are running.
-- The Build pipeline has run at least once so the BSM client credentials are
-  available to GitLab.
 - At least one image group has a status other than `CLEANED`.
 
 ## Configure Automated Cleanup
 
 Automated cleanup is configured in the `retention` group of
-`build_stream_config.yml`. The configuration is re-read every 60 seconds, so
-changes apply without restarting the BuildStreaM API container.
+`build_stream_config.yml`.
 
 ### Configuration Parameters
 
@@ -68,16 +65,13 @@ retention:
 An image group is eligible for automated cleanup when it meets ALL of the
 following criteria:
 
-- Not tagged as protected
-- `deploy_count = 0` (never deployed)
+- `deploy_count = 0` (All the image groups except the currently deployed)
 - Age exceeds `retention_age_days`
-- Status is not `CLEANED` or `CLEANING`
-- The per-catalog-identifier count is above `min_keep_count`
 
 The cleanup cycle runs in two phases:
 
 1. **Phase 1**: Cleans image groups in `FAILED` status
-2. **Phase 2**: Applies age-based retention to eligible image groups
+2. **Phase 2**: Applies age-based retention to eligible image groups in nonfailed status
 
 A failure on one image group does not stop the cleanup of other image groups.
 
@@ -159,11 +153,6 @@ Use the manual cleanup pipeline to select and delete specific image groups.
 2. Verify that the deleted image groups meet the configured retention criteria:
    - Age exceeds `retention_age_days`
    - `deploy_count = 0`
-   - Not tagged as protected
-   - Status is not `CLEANED` or `CLEANING`
-
-3. Confirm that the per-catalog-identifier count is respected by checking that
-   at least `min_keep_count` image groups remain for each catalog identifier.
 
 4. For catalog-mode image groups, verify that the global dictionary no longer
    contains entries for the cleaned composite image-group identifiers.
@@ -198,9 +187,6 @@ Use the manual cleanup pipeline to select and delete specific image groups.
   `min_keep_count`, and `evaluation_interval_hours` settings. Check the
   BuildStreaM API logs for `RETENTION_DELETED` audit events to understand which
   images were deleted and why.
-- **Configuration changes not taking effect:** The configuration is re-read every
-  60 seconds. Wait at least 60 seconds after saving changes to
-  `build_stream_config.yml` before verifying the new behavior.
 - **Invalid configuration rejected:** Check the BuildStreaM API logs for warnings
   about invalid retention parameter values. Ensure `retention_age_days` ≥ 1,
   `min_keep_count` ≥ 0, and `evaluation_interval_hours` ≥ 1.
