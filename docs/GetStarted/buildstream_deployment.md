@@ -478,7 +478,7 @@ pipeline results.
   a failed stage.
 - [Automate Build and Deployment with Cadence](../HowTo/build_stream/execute_cadence_pipeline.md)
   to periodically reconcile RPM content and run a unified lifecycle.
-- [Clean Up Pipeline Resources](../Operations/build_stream/cleanup_operations.md)
+- [Clean Up Pipeline Resources](../HowTo/build_stream/cleanup_operations.md)
   with the manual/API-only cleanup pipeline. It is never selected by a catalog
   or mapping file change.
 - [Deploy Telemetry](../HowTo/Telemetry/deploy_telemetry.md) after a service

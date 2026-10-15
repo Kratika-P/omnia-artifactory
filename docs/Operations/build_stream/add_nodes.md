@@ -65,7 +65,7 @@ For the complete pipeline procedure, see
 - Keep the committed mapping synchronized with the intended cluster inventory.
 - Use the direct [Orchestrator add-node procedure](../add_nodes.md) when a
   custom new-node-only PXE inventory is required.
-- [Clean up old image groups](cleanup_operations.md) when they are no longer
+- [Clean up old image groups](../../HowTo/build_stream/cleanup_operations.md) when they are no longer
   required.
 
 ## Troubleshooting

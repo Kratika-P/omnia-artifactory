@@ -67,7 +67,7 @@ failed GitLab stage.
 ## Next steps
 
 - [Execute Deploy Pipeline](../../HowTo/build_stream/execute_deploy_pipeline.md) -- Deploy pipeline operations
-- [Cleanup Operations](cleanup_operations.md) -- Remove old Image Groups
+- [Cleanup Operations](../../HowTo/build_stream/cleanup_operations.md) -- Remove old Image Groups
 
 ## Troubleshooting
 

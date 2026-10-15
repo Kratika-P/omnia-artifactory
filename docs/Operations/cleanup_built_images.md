@@ -6,7 +6,7 @@ Build Manager services, credentials, configuration, logs, or output files.
 
 Use this operation for direct Image Build Manager workflows. For images
 managed by BuildStreaM, use
-[Clean up BuildStreaM image groups](build_stream/cleanup_operations.md).
+[Clean up BuildStreaM image groups](../HowTo/build_stream/cleanup_operations.md).
 
 !!! danger
 

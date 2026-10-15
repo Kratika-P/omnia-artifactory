@@ -50,7 +50,6 @@ logs, and cleaning up domains or the OIM environment.
 ## BuildStreaM lifecycle
 
 - [Update the BuildStreaM catalog](build_stream/update_catalog.md).
-- [Clean up image groups](build_stream/cleanup_operations.md).
 - [Retry a failed pipeline](build_stream/retry_pipelines.md).
 
 ## Diagnostics and recovery

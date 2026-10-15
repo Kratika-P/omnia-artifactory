@@ -108,7 +108,7 @@ After committing the catalog changes, verify that the update was successful:
 - [Execute Build Pipeline](../../HowTo/build_stream/execute_build_pipeline.md) -- Detailed build pipeline operations
 - [Execute Deploy Pipeline](../../HowTo/build_stream/execute_deploy_pipeline.md) -- Detailed deploy pipeline operations
 - [Automate Build and Deployment with Cadence](../../HowTo/build_stream/execute_cadence_pipeline.md) -- Unified cadence pipeline operations
-- [Cleanup Operations](cleanup_operations.md) -- Remove old Image Groups
+- [Cleanup Operations](../../HowTo/build_stream/cleanup_operations.md) -- Remove old Image Groups
 - [Retry Pipelines](retry_pipelines.md) -- Retry failed pipeline operations
 
 ## Troubleshooting

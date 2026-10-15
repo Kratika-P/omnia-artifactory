@@ -64,9 +64,22 @@ deploy-only pipelines remain independently available.
 
     ```yaml
     cadence:
+      # Enable or disable cadence polling for periodic package synchronization
+      # Accepted values: true | false
+      # Default: false
       enabled: true
-      interval_seconds: 86400
+
+      # Polling interval for cadence syncs in days
+      # Accepted values: integer >= 1 (1 day minimum)
+      # Default: 7 (7 days)
+      interval_days: 7
+
+      # Timeout for repo sync playbook execution in seconds
+      # Default: 3600 (1 hour)
       sync_timeout_seconds: 3600
+
+      # Poll interval while waiting for sync result in seconds
+      # Default: 10
       sync_poll_interval_seconds: 10
     ```
 
@@ -75,7 +88,7 @@ deploy-only pipelines remain independently available.
     | Parameter | Constraint | Default |
     |---|---|---|
     | `enabled` | Boolean | `false` |
-    | `interval_seconds` | Integer greater than or equal to `3600` | `86400` |
+    | `interval_days` | Integer greater than or equal to `1` | `7` |
     | `sync_timeout_seconds` | Integer greater than or equal to `60` | `3600` |
     | `sync_poll_interval_seconds` | Integer from `1` through `300` | `10` |
 
@@ -87,7 +100,7 @@ deploy-only pipelines remain independently available.
     ```
 
 4. Allow the watcher to run automatically. The first reconciliation begins
-   after `interval_seconds`.
+   after `interval_days`.
 
 5. To run the unified pipeline manually without waiting for reconciliation:
 
@@ -95,6 +108,8 @@ deploy-only pipelines remain independently available.
     2. Click **New pipeline**.
     3. Add the variable `PIPELINE_TYPE` with the value `cadence`.
     4. Click **Run pipeline**.
+
+    ![Cadence Pipeline](../../assets/images/cadence_pipeline.png)
 
     A manual cadence pipeline uses the current `cadence_catalog_rhel.json` and
     starts the unified lifecycle directly. Starting the pipeline manually
@@ -136,7 +151,7 @@ deploy-only pipelines remain independently available.
 ## Next steps
 
 - Review the [Catalog JSON reference](../../Reference/SampleFiles/catalog_json.md).
-- Use [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md)
+- Use [Cleanup Operations](cleanup_operations.md)
   to remove image groups that are no longer required.
 
 ## Troubleshooting
@@ -144,10 +159,8 @@ deploy-only pipelines remain independently available.
 - **The timer does not start:** Confirm that `cadence.enabled` is `true`, the
   staged configuration is valid, and `playbook-watcher.service` is active.
 - **The first cycle has not run:** The watcher waits for the complete
-  `interval_seconds` value before its first cycle.
-- **The catalog cannot be pushed:** Verify the clone's remote, branch, network
-  connectivity, and noninteractive Git authentication. Review the clone's
-  commit state before changing the catalog version again.
+  `interval_days` value before its first cycle.
+- **Cadence Pipeline is not triggered periodically:** If RPM reconciliation via repo_resync.yml fails, there will be no cadence pipeline invoked.
 - **The cycle is suppressed:** An active pipeline causes cadence to skip that
   cycle. Allow the pipeline to finish and wait for the next interval.
 - **The reconciliation result is rejected:** Correct any failed aggregate or
