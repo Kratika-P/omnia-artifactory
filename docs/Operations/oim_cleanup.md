@@ -152,7 +152,7 @@ To remove PostgreSQL data and volumes as part of a complete reset, run instead:
 
 To remove an individual BuildStreaM image group while retaining the deployed
 domain, do not run full domain cleanup. Use
-[Clean up BuildStreaM image groups](build_stream/cleanup_operations.md).
+[Clean up BuildStreaM image groups](../HowTo/build_stream/cleanup_operations.md).
 
 ### 2. Clean up Telemetry
 

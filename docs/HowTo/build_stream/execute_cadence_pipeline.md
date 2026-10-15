@@ -151,7 +151,7 @@ deploy-only pipelines remain independently available.
 ## Next steps
 
 - Review the [Catalog JSON reference](../../Reference/SampleFiles/catalog_json.md).
-- Use [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md)
+- Use [Cleanup Operations](cleanup_operations.md)
   to remove image groups that are no longer required.
 
 ## Troubleshooting

@@ -181,7 +181,7 @@ After the deploy pipeline completes:
 ## Next steps
 
 - [Add Nodes through BuildStreaM](../../Operations/build_stream/add_nodes.md) -- Update the desired mapping and run the deploy pipeline
-- [Cleanup Operations](../../Operations/build_stream/cleanup_operations.md) -- Remove old Image Groups
+- [Cleanup Operations](cleanup_operations.md) -- Remove old Image Groups
 - [Automate Build and Deployment with Cadence](execute_cadence_pipeline.md) -- Build and deploy the cadence catalog in one execution
 
 ## Troubleshooting
