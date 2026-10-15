@@ -244,8 +244,8 @@ belongs to multiple processed groups.
 The mapping generator accepts these exact, case-sensitive OME static-group
 names:
 
-- `service_kube_control_plane_x86_64`
-- `service_kube_node_x86_64`
+- `service_kube_control_plane_rhel_10_0_x86_64`
+- `service_kube_node_rhel_10_0_x86_64`
 - `login_node_x86_64`
 - `login_node_aarch64`
 - `login_compiler_node_x86_64`
@@ -276,9 +276,9 @@ description does not affect Discovery behavior.
 
     Discovery uses the source-supported OME static-group names listed above.
     Before copying the generated file to the Orchestrator input directory,
-    replace `service_kube_control_plane_x86_64` and
-    `service_kube_node_x86_64` with the matching version-qualified names from
-    the selected catalog. For example, a RHEL 10.2 catalog uses
+    replace `service_kube_control_plane_rhel_10_0_x86_64` and
+    `service_kube_node_rhel_10_0_x86_64` with the matching version-qualified
+    names from the selected catalog. For example, a RHEL 10.2 catalog uses
     `service_kube_control_plane_rhel_10_2_x86_64` and
     `service_kube_node_rhel_10_2_x86_64`. Use one RHEL minor version across the
     Kubernetes cluster.
