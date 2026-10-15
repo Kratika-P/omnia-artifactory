@@ -54,34 +54,32 @@ FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_M
 | `IB_NIC_NAME` | No | InfiniBand NIC FQDD, such as `InfiniBand.Slot.7-1`. |
 | `IB_IP` | No | Static InfiniBand IPv4 address. Leave empty when no InfiniBand NIC is used. |
 
-Discovery generates these role-and-architecture names:
-
-- `service_kube_control_plane_x86_64`
-- `service_kube_node_x86_64`
-- `login_node_x86_64`
-- `login_node_aarch64`
-- `login_compiler_node_x86_64`
-- `login_compiler_node_aarch64`
-- `slurm_control_node_x86_64`
-- `slurm_node_x86_64`
-- `slurm_node_aarch64`
-- `os_x86_64`
-- `os_aarch64`
-
-Before using the generated file as Orchestrator input, replace ALL
-Discovery-generated role names with their version-qualified names from the
-catalog. This includes all `service_kube_*`, `slurm_*`, `login_node_*`,
-`login_compiler_node_*`, and `os_*` roles:
+In Omnia 2.3, Discovery uses functional group names directly from OME static
+groups. OME static groups must follow the version-qualified pattern:
 
 ```text
-service_kube_control_plane_rhel_10_<minor>_x86_64
-service_kube_node_rhel_10_<minor>_x86_64
+<prefix>_rhel_<major>_<minor>_<arch>
 ```
 
-For the currently documented catalogs, `<minor>` is `0` for RHEL 10.0 or `2`
-for RHEL 10.2. Use the same minor version for all Kubernetes rows. Note: The
-default catalog only offers `rhel_10_2` for x86_64 Kubernetes roles and
-`rhel_10_0` for aarch64 roles.
+Discovery generates these version-qualified role-and-architecture names when
+OME static groups follow the pattern:
+
+- `service_kube_control_plane_rhel_10_0_x86_64`
+- `service_kube_node_rhel_10_0_x86_64`
+- `login_node_rhel_10_0_x86_64`
+- `login_node_rhel_10_0_aarch64`
+- `login_compiler_node_rhel_10_0_x86_64`
+- `login_compiler_node_rhel_10_0_aarch64`
+- `slurm_control_node_rhel_10_0_x86_64`
+- `slurm_node_rhel_10_0_x86_64`
+- `slurm_node_rhel_10_0_aarch64`
+- `os_rhel_10_0_x86_64`
+- `os_rhel_10_0_aarch64`
+
+Ensure OME static groups follow the Omnia 2.3 pattern and match the functional
+groups defined in the catalog used by Orchestrator. For RHEL 10.2, use the
+corresponding version (e.g., `slurm_node_rhel_10_2_x86_64`). Use the same minor
+version for all Kubernetes rows.
 
 The default hybrid catalog uses RHEL 10.2 for x86_64 roles and RHEL 10.0 for
 aarch64 roles:
@@ -95,13 +93,13 @@ aarch64 roles:
 - `slurm_node_rhel_10_0_aarch64`
 - `login_compiler_node_rhel_10_0_aarch64`
 
-The source templates also support `login_node_aarch64`,
-`login_compiler_node_x86_64`, and `slurm_node_x86_64` roles. To select one of
-those role-and-architecture combinations, use a catalog that defines it and
-build the corresponding image before provisioning.
+The source templates also support `login_node_rhel_10_0_aarch64`,
+`login_compiler_node_rhel_10_0_x86_64`, and `slurm_node_rhel_10_0_x86_64` roles.
+To select one of those role-and-architecture combinations, use a catalog that
+defines it and build the corresponding image before provisioning.
 
-For Kubernetes roles, Orchestrator input must use the version-qualified form
-that matches the active catalog. Other catalog variants can use different
+For all roles, Orchestrator input must use the version-qualified form that
+matches the active catalog. Other catalog variants can use different
 operating-system and version segments. Confirm that Image Build Manager
 produced an image for every selected role and architecture.
 
