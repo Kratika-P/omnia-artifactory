@@ -104,12 +104,10 @@ the supported `cleanup,cleanup_credentials` combination.
 | `prepare` | Reserved placeholder; no Discovery preparation flow is implemented. | Do not use |
 | `cleanup` | Empties the current project's Discovery output directory but preserves the directory. | Removed by default |
 | `cleanup_credentials` | Removes only the Discovery credential file and Vault key. | Removed |
-| `upgrade` | Reserved placeholder; no Discovery upgrade flow is implemented. | Do not use |
-| `rollback` | Reserved placeholder; no Discovery rollback flow is implemented. | Do not use |
 
-Unsupported tags and conflicting combinations fail validation. The `prepare`,
-`upgrade`, and `rollback` placeholder tags are accepted by the playbook but do
-not perform an operational lifecycle action in the current release.
+Unsupported tags and conflicting combinations fail validation. The `prepare`
+placeholder tag is accepted by the playbook but does not perform an operational
+lifecycle action in the current release.
 
 ### Clean up Discovery data
 
