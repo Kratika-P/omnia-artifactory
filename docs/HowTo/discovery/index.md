@@ -96,7 +96,7 @@ the supported `cleanup,cleanup_credentials` combination.
 | Tag | Current behavior | Credentials |
 |-----|------------------|-------------|
 | *(none)* | Runs validation, credential handling, and OME discovery. | Created or loaded |
-| `validate` | Validates `discovery_config.yml`; it does not validate `network_spec.yml`. | Skipped |
+| `validate` | Validates `discovery_config.yml` and `network_spec.yml` against their JSON schemas. | Skipped |
 | `credentials` | Validates the configuration and creates or updates the encrypted OME credential file. | Created or updated |
 | `execute` | Runs OME discovery after setup, validation, and credential handling. | Created or loaded |
 | `discovery` | Alias of `execute`. | Created or loaded |
