@@ -303,9 +303,9 @@ assigned to a nonempty, unsupported static group is also placed in the default
 functional group with a warning; the server is not skipped and appears in the
 mapping file.
 
-For `slurm_node_x86_64` and `slurm_node_aarch64`, Discovery may populate
-optional `PARENT_SERVICE_TAG` metadata. Review, edit, or clear that value as
-appropriate before using the mapping as Orchestrator input.
+For `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64`,
+Discovery may populate optional `PARENT_SERVICE_TAG` metadata. Review, edit,
+or clear that value as appropriate before using the mapping as Orchestrator input.
 
 ## Procedure
 
