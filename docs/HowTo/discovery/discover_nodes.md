@@ -244,8 +244,8 @@ belongs to multiple processed groups.
 The mapping generator accepts these exact, case-sensitive OME static-group
 names:
 
-- `service_kube_control_plane_x86_64`
-- `service_kube_node_x86_64`
+- `service_kube_control_plane_rhel_10_0_x86_64`
+- `service_kube_node_rhel_10_0_x86_64`
 - `login_node_x86_64`
 - `login_node_aarch64`
 - `login_compiler_node_x86_64`
@@ -276,9 +276,9 @@ description does not affect Discovery behavior.
 
     Discovery uses the source-supported OME static-group names listed above.
     Before copying the generated file to the Orchestrator input directory,
-    replace `service_kube_control_plane_x86_64` and
-    `service_kube_node_x86_64` with the matching version-qualified names from
-    the selected catalog. For example, a RHEL 10.2 catalog uses
+    replace `service_kube_control_plane_rhel_10_0_x86_64` and
+    `service_kube_node_rhel_10_0_x86_64` with the matching version-qualified
+    names from the selected catalog. For example, a RHEL 10.2 catalog uses
     `service_kube_control_plane_rhel_10_2_x86_64` and
     `service_kube_node_rhel_10_2_x86_64`. Use one RHEL minor version across the
     Kubernetes cluster.
@@ -298,13 +298,14 @@ that each server is assigned to no more than one Omnia static group and that
 each group is an immediate child of **Static Groups**.
 
 A server without a static-group assignment is placed in
-`slurm_node_aarch64`. A server assigned to a nonempty, unsupported static
-group is skipped when the mapping file is generated, although it remains in
-the discovery report.
+`slurm_node_rhel_10_0_aarch64` (the default functional group). A server
+assigned to a nonempty, unsupported static group is also placed in the default
+functional group with a warning; the server is not skipped and appears in the
+mapping file.
 
-For `slurm_node_x86_64` and `slurm_node_aarch64`, Discovery may populate
-optional `PARENT_SERVICE_TAG` metadata. Review, edit, or clear that value as
-appropriate before using the mapping as Orchestrator input.
+For `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64`,
+Discovery may populate optional `PARENT_SERVICE_TAG` metadata. Review, edit,
+or clear that value as appropriate before using the mapping as Orchestrator input.
 
 ## Procedure
 
@@ -343,7 +344,7 @@ appropriate before using the mapping as Orchestrator input.
    [assign the discovered servers](#assign-devices-to-ome-static-groups). Use
    an exact supported functional-group name and place each server in no more
    than one Omnia static group. A server without a static-group assignment
-   uses the default functional group.
+   uses the default functional group (slurm_node_rhel_10_0_aarch64).
 
 5. Edit the staged `discovery_config.yml` and configure the OME appliance:
 
@@ -370,8 +371,9 @@ appropriate before using the mapping as Orchestrator input.
     Discovery derives `ADMIN_IP` by combining the first two octets of the admin
     subnet with the last two octets of the server's BMC IP. It derives `IB_IP`
     in the same way from the InfiniBand subnet, but only when an InfiniBand NIC
-    was detected. The Discovery validator does not validate `network_spec.yml`,
-    so review these subnet values before execution.
+    was detected. The Discovery validator validates `network_spec.yml` against
+    the same JSON schema used by Orchestrator, ensuring subnet format and
+    required fields are correct.
 
 7. Validate `discovery_config.yml` before contacting OME:
 
@@ -627,7 +629,7 @@ empty](#infiniband-fields-are-empty).
 
     | Column | Generated value |
     |--------|-----------------|
-    | `FUNCTIONAL_GROUP_NAME` | Supported OME static-group name, or `slurm_node_aarch64` when the server has no assignment. |
+    | `FUNCTIONAL_GROUP_NAME` | Supported OME static-group name or `slurm_node_rhel_10_0_aarch64` when the server has no assignment or has an unsupported group. |
     | `GROUP_NAME` | `SU` identifier derived from the iDRAC hostname, or `grp0` when no identifier is found. |
     | `SERVICE_TAG` | Service tag reported by OME. |
     | `PARENT_SERVICE_TAG` | Optional parent-node service tag that Discovery may populate for a Slurm compute row; otherwise empty. Review this value before using the mapping. |
@@ -646,7 +648,7 @@ empty](#infiniband-fields-are-empty).
     | Attribute | Confirmation |
     |-----------|--------------|
     | Server coverage | Every expected service tag occurs exactly once. Investigate an absent server in the discovery report and its OME static-group assignment. |
-    | `FUNCTIONAL_GROUP_NAME` | The value is the server's intended Omnia role and exactly matches a supported, case-sensitive functional-group name. An unassigned OME server defaults to `slurm_node_aarch64`; retain that default only when it is the intended role. |
+    | `FUNCTIONAL_GROUP_NAME` | The value is the server's intended Omnia role and exactly matches a supported, case-sensitive functional-group name. An unassigned OME server defaults to `slurm_node_rhel_10_0_aarch64`; retain that default only when it is the intended role. |
     | `ADMIN_MAC` | The value is nonempty, unique, and matches the Ethernet port that the server will use on the admin/PXE network. Compare it with the OME interface inventory and `ETHERNET_NIC_MAC` in the discovery report. Prefer a port whose reported link status is `Up`. |
     | `BMC_IP` | The value is nonempty and matches the iDRAC management address reported for that service tag in OME. Discovery copies this value from OME; it does not confirm that the address is correct for the physical server. |
     | `HOSTNAME` | The value is unique and matches the deployment's hostname plan. Discovery generates a three-digit `nid` sequence beginning with `nid001`; edit the value when the generated assignment is not the intended one. |
@@ -774,10 +776,12 @@ no more than one static group and rerun Discovery.
 
 ### A server is missing from the mapping
 
-Look for a warning that names an unsupported OME static group. Rename the group
-to one of the supported functional-group names or remove the server's static
-group assignment to use the default. The server remains visible in the
-discovery report if OME supplied its service tag.
+Look for a warning that names an unsupported OME static group. The server is
+automatically assigned to the default functional group
+(slurm_node_rhel_10_0_aarch64) with a warning. Rename the group to one of the
+supported functional-group names if you want a specific assignment, or leave
+it to use the default. The server remains visible in the discovery report if
+OME supplied its service tag.
 
 ### The admin MAC address is unexpected or empty
 

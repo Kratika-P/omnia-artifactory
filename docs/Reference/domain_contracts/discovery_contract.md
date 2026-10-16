@@ -93,9 +93,8 @@ from an earlier run.
 
 Run the domain from `src/main` with `./omnia.sh --run discovery`. The supported
 tags are `precheck`, `validate`, `credentials`, `prepare`, `execute`,
-`discovery`, `cleanup`, `cleanup_credentials`, `upgrade`, and `rollback`. Use
-one tag at a time, except for the supported `cleanup,cleanup_credentials`
-combination.
+`discovery`, `cleanup`, and `cleanup_credentials`. Use one tag at a time,
+except for the supported `cleanup,cleanup_credentials` combination.
 
 The operational tags are:
 
@@ -110,8 +109,8 @@ The operational tags are:
 | `cleanup` | Empties the current project's Discovery output directory and removes credentials by default. |
 | `cleanup_credentials` | Removes only the Discovery credential file and Vault key. |
 
-`prepare`, `upgrade`, and `rollback` are accepted placeholders in the current
-source. They do not perform the named lifecycle operation.
+`prepare` is an accepted placeholder in the current source. It does not perform
+the named lifecycle operation.
 
 Full cleanup preserves the current project output directory but removes every
 entry inside it, including timestamped mappings, the latest-mapping symbolic

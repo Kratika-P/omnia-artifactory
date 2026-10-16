@@ -53,7 +53,7 @@ for `execute`.
 The following accepted lifecycle tags are placeholders and do not perform the
 named operation:
 
-- Discovery: `prepare`, `upgrade`, and `rollback`.
+- Discovery: `prepare`.
 - BuildStreaM: `upgrade` and `rollback`.
 - Image Build Manager: `upgrade` and `rollback`.
 - Repository Manager: `upgrade` and `rollback`.
