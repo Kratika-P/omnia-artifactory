@@ -58,7 +58,7 @@ runs.
 |---|---|
 | `--setup-venv`, `-s` | Create or update the shared Python virtual environment, install module dependencies, run each selected `domain-init.sh`, stage module inputs, and copy catalog files. |
 | `--init`, `-i [domain,...]` | Rerun initialization for all domains or a comma-separated domain list without rebuilding the virtual environment. |
-| `--prepare-base` | Run validation, credential collection, and preparation for Repository Manager, Image Build Manager, and Orchestrator. |
+| `--prepare-base` | Run validation, credential collection, and preparation for Repository Manager, Image Build Manager, and Orchestrator. Execution is phase-by-phase across all domains with fail-fast behavior. |
 | `--run`, `-r <domain> [--tags <tags>] [extra Ansible arguments]` | Activate the shared environment and run the selected domain playbook. |
 | `--check-deps` | Report conflicting Python or Ansible Galaxy dependency requirements across domains. The command exits with a nonzero status when conflicts are found. |
 | `--list-catalogs` | List bundled catalogs with selectors, descriptions, content-derived summaries, and source paths. |

@@ -185,6 +185,16 @@ union for every discovered version. Layers named
     `package_groups.yml` in
     `<OMNIA_DATA_PATH>/image_build_manager/input/<OMNIA_PROJECT_NAME>/`.
 
+    The initialization script resolves template placeholders in the staged config
+    files:
+    - `__OMNIA_DATA_PATH__` is replaced with the actual `OMNIA_DATA_PATH` value
+    - `__PROJECT_NAME__` is replaced with the actual `OMNIA_PROJECT_NAME` value
+
+    Dependency installation uses checksum-based caching. If the requirements files
+    have not changed, the installation is skipped to save time. Use
+    `--force-deps` with `./omnia.sh --init` or `./omnia.sh --setup-venv` to
+    bypass the cache and force reinstallation.
+
     !!! warning
 
         If staged input files already exist, initialization asks before
