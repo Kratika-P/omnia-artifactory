@@ -196,7 +196,6 @@ nav:
       - Deploy Slurm: HowTo/orchestrator/deploy_slurm.md
       - Deploy Kubernetes: HowTo/orchestrator/deploy_kubernetes.md
       - Provision Nodes: HowTo/orchestrator/provision_nodes.md
-      - Upgrade Orchestrator: HowTo/orchestrator/upgrade_orchestrator.md
       - Clean Up Orchestrator: HowTo/orchestrator/cleanup_orchestrator.md
       - Configure InfiniBand: HowTo/orchestrator/configure_infiniband.md
       - Cluster DNS Concepts: Overview/cluster_dns.md
