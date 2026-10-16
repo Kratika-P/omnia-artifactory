@@ -19,8 +19,9 @@ $OMNIA_DATA_PATH/image_build_manager/input/$OMNIA_PROJECT_NAME/package_groups.ym
 | `functional_groups` | object | Yes | One or more functional-group definitions. |
 | `functional_groups.<name>.packages` | list of strings | Yes | Unique RPM names added to that functional-group image. The list may be empty. |
 
-Functional-group names must end in `_x86_64` or `_aarch64` and can otherwise
-contain letters, digits, underscores, and hyphens. Unknown fields are rejected.
+Functional-group names must follow the version-qualified pattern
+`<prefix>_rhel_<major>_<minor>_<arch>` and can otherwise contain letters,
+digits, underscores, and hyphens. Unknown fields are rejected.
 
 ## Usage example
 
@@ -35,9 +36,9 @@ base_packages:
   - nfs-utils
 
 functional_groups:
-  os_x86_64:
+  os_rhel_10_0_x86_64:
     packages: []
-  slurm_node_x86_64:
+  slurm_node_rhel_10_0_x86_64:
     packages:
       - munge
       - slurm-slurmd

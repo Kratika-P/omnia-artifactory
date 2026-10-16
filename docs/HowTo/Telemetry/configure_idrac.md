@@ -413,8 +413,8 @@ command invokes `src/telemetry/playbooks/telemetry.yml`.
 
         The `idrac-telemetry-0` pod is always responsible for collecting the
         telemetry data of the management nodes (`oim`,
-        `service_kube_control_plane_x86_64`, `service_kube_node_x86_64`,
-        `login_node_x86_64`, and others).
+        `service_kube_control_plane_rhel_10_0_x86_64`, `service_kube_node_rhel_10_0_x86_64`,
+        `login_node_rhel_10_0_x86_64`, and others).
 
 2. Connect to MySQL:
 
