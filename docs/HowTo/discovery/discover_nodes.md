@@ -241,20 +241,28 @@ Discovery falls back to non-system OME groups. A server can belong to no more
 than one of the groups that Discovery processes; Discovery stops if a server
 belongs to multiple processed groups.
 
-The mapping generator accepts these exact, case-sensitive OME static-group
-names:
+In Omnia 2.3, OME static groups must follow the version-qualified pattern:
+
+```text
+<prefix>_rhel_<major>_<minor>_<arch>
+```
+
+Where `<arch>` is `x86_64` or `aarch64`. The mapping generator accepts these
+exact, case-sensitive OME static-group names:
 
 - `service_kube_control_plane_rhel_10_0_x86_64`
 - `service_kube_node_rhel_10_0_x86_64`
-- `login_node_x86_64`
-- `login_node_aarch64`
-- `login_compiler_node_x86_64`
-- `login_compiler_node_aarch64`
-- `slurm_control_node_x86_64`
-- `slurm_node_x86_64`
-- `slurm_node_aarch64`
-- `os_x86_64`
-- `os_aarch64`
+- `login_node_rhel_10_0_x86_64`
+- `login_node_rhel_10_0_aarch64`
+- `login_compiler_node_rhel_10_0_x86_64`
+- `login_compiler_node_rhel_10_0_aarch64`
+- `slurm_control_node_rhel_10_0_x86_64`
+- `slurm_node_rhel_10_0_x86_64`
+- `slurm_node_rhel_10_0_aarch64`
+- `os_rhel_10_0_x86_64`
+- `os_rhel_10_0_aarch64`
+
+For RHEL 10.2, use the corresponding version (e.g., `slurm_node_rhel_10_2_x86_64`).
 
 #### Create OME static groups
 
@@ -264,7 +272,8 @@ cluster:
 1. In the OME left navigation menu, select **CUSTOM GROUPS > Static Groups**.
 2. Select the ellipsis (**...**) next to **Static Groups**, and then select
    **Create Group**.
-3. Enter one of the supported functional-group names exactly as listed above.
+3. Enter one of the supported functional-group names exactly as listed above,
+   using the version-qualified pattern that matches your catalog.
 4. Enter a description that identifies the purpose of the group.
 5. Select **Finish**.
 
@@ -272,16 +281,12 @@ Repeat these steps for each functional group required by the cluster. The
 group name determines the value written to `FUNCTIONAL_GROUP_NAME`; the group
 description does not affect Discovery behavior.
 
-!!! important "Update Kubernetes groups before Orchestrator provisioning"
+!!! important "Use version-qualified group names"
 
-    Discovery uses the source-supported OME static-group names listed above.
-    Before copying the generated file to the Orchestrator input directory,
-    replace `service_kube_control_plane_rhel_10_0_x86_64` and
-    `service_kube_node_rhel_10_0_x86_64` with the matching version-qualified
-    names from the selected catalog. For example, a RHEL 10.2 catalog uses
-    `service_kube_control_plane_rhel_10_2_x86_64` and
-    `service_kube_node_rhel_10_2_x86_64`. Use one RHEL minor version across the
-    Kubernetes cluster.
+    OME static groups must use the version-qualified pattern
+    `<prefix>_rhel_<major>_<minor>_<arch>`. Discovery uses the OME static-group
+    name directly as the functional group. Ensure the OME group names match
+    the functional groups defined in the catalog used by Orchestrator.
 
 #### Assign devices to OME static groups
 
@@ -297,15 +302,14 @@ Repeat these steps for the remaining groups. Before running Discovery, verify
 that each server is assigned to no more than one Omnia static group and that
 each group is an immediate child of **Static Groups**.
 
-A server without a static-group assignment is placed in
-`slurm_node_rhel_10_0_aarch64` (the default functional group). A server
-assigned to a nonempty, unsupported static group is also placed in the default
-functional group with a warning; the server is not skipped and appears in the
-mapping file.
+A server without a static-group assignment is placed in the default functional
+group `slurm_node_rhel_10_0_aarch64`. A server assigned to a nonempty,
+unsupported static group is also placed in the default functional group with
+a warning; the server is not skipped and appears in the mapping file.
 
-For `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64`,
-Discovery may populate optional `PARENT_SERVICE_TAG` metadata. Review, edit,
-or clear that value as appropriate before using the mapping as Orchestrator input.
+For `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64`, Discovery
+may populate optional `PARENT_SERVICE_TAG` metadata. Review, edit, or clear
+that value as appropriate before using the mapping as Orchestrator input.
 
 ## Procedure
 
@@ -355,27 +359,37 @@ or clear that value as appropriate before using the mapping as Orchestrator inpu
     Configure `ome_ip` with a valid, non-loopback OME IPv4 address, which is the
     format defined by the Discovery configuration schema.
 
-6. Edit the staged `network_spec.yml`. Discovery uses only
-   `admin_network.subnet` and `ib_network.subnet`; preserve the `Networks` list
-   and both network entries from the staged template.
+6. Edit the staged `network_spec.yml`. Discovery validates this file against
+   the same JSON schema used by Orchestrator, so all required fields must be
+   present. Discovery uses `admin_network.subnet` and `ib_network.subnet` for
+   IP derivation.
 
     ```yaml title="File: /opt/omnia/discovery/input/project_default/network_spec.yml"
     Networks:
       - admin_network:
+          oim_nic_name: "eno1"
           subnet: "172.16.0.0"
+          netmask_bits: "24"
+          primary_oim_admin_ip: "172.16.107.254"
+          primary_oim_bmc_ip: ""
+          router: "172.16.107.254"
+          dynamic_range: "172.16.107.201-172.16.107.250"
+          dns: []
+          ntp_servers: []
+          additional_subnets: []
 
       - ib_network:
           subnet: "192.168.0.0"
+          netmask_bits: "24"
+          dns: []
     ```
 
     Discovery derives `ADMIN_IP` by combining the first two octets of the admin
     subnet with the last two octets of the server's BMC IP. It derives `IB_IP`
     in the same way from the InfiniBand subnet, but only when an InfiniBand NIC
-    was detected. The Discovery validator validates `network_spec.yml` against
-    the same JSON schema used by Orchestrator, ensuring subnet format and
-    required fields are correct.
+    was detected.
 
-7. Validate `discovery_config.yml` before contacting OME:
+7. Validate `discovery_config.yml` and `network_spec.yml` before contacting OME:
 
     === "Using omnia.sh (recommended)"
 
@@ -391,6 +405,13 @@ or clear that value as appropriate before using the mapping as Orchestrator inpu
         cd <OMNIA_SOURCE_PATH>/src/discovery/playbooks
         ansible-playbook discovery.yml --tags validate
         ```
+
+    The validate phase performs JSON schema validation on both input files:
+
+    | File | Schema | Validation |
+    |------|--------|------------|
+    | `discovery_config.yml` | `discovery_config.json` | Validates `ome_ip` is a valid, non-loopback IPv4 address |
+    | `network_spec.yml` | `network_spec.json` | Validates against the same schema used by Orchestrator |
 
     A successful validation prints `Discovery configuration validation passed.`
     and displays the validation-log path. This phase does not request OME
@@ -629,7 +650,7 @@ empty](#infiniband-fields-are-empty).
 
     | Column | Generated value |
     |--------|-----------------|
-    | `FUNCTIONAL_GROUP_NAME` | Supported OME static-group name or `slurm_node_rhel_10_0_aarch64` when the server has no assignment or has an unsupported group. |
+    | `FUNCTIONAL_GROUP_NAME` | Supported OME static-group name, or `slurm_node_rhel_10_0_aarch64` when the server has no assignment or has an unsupported group. |
     | `GROUP_NAME` | `SU` identifier derived from the iDRAC hostname, or `grp0` when no identifier is found. |
     | `SERVICE_TAG` | Service tag reported by OME. |
     | `PARENT_SERVICE_TAG` | Optional parent-node service tag that Discovery may populate for a Slurm compute row; otherwise empty. Review this value before using the mapping. |

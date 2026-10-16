@@ -43,10 +43,12 @@ FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_M
 ```
 
 For OME discovery, `FUNCTIONAL_GROUP_NAME` is derived from the server's
-supported, case-sensitive OME static-group name. A server without a static
-group uses `slurm_node_aarch64`; a server in an unsupported nonempty group is
-omitted from the mapping file; and membership in multiple processed groups
-causes Discovery to stop. See [Create OME static
+supported, case-sensitive OME static-group name. OME static groups must follow
+the version-qualified pattern `<prefix>_rhel_<major>_<minor>_<arch>`. A server
+without a static group uses the default functional group
+`slurm_node_rhel_10_0_aarch64`; a server in an unsupported nonempty group is
+also placed in the default functional group with a warning; and membership in
+multiple processed groups causes Discovery to stop. See [Create OME static
 groups](../../HowTo/discovery/discover_nodes.md#create-ome-static-groups) for
 the supported names and OME procedure.
 
@@ -66,12 +68,12 @@ Review and correct the generated values before copying the file to:
 $OMNIA_DATA_PATH/orchestrator/input/$OMNIA_PROJECT_NAME/pxe_mapping_file.csv
 ```
 
-For `slurm_node_x86_64` and `slurm_node_aarch64`, Discovery may populate
-optional `PARENT_SERVICE_TAG` metadata in generated rows. It otherwise leaves
-the field empty. This is Discovery generation behavior, not an Orchestrator
-input constraint. Orchestrator does not require a parent value or validate it
-against `GROUP_NAME`; review both values before handing the mapping to
-Orchestrator.
+For `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64`, Discovery
+may populate optional `PARENT_SERVICE_TAG` metadata in generated rows. It
+otherwise leaves the field empty. This is Discovery generation behavior, not
+an Orchestrator input constraint. Orchestrator does not require a parent value
+or validate it against `GROUP_NAME`; review both values before handing the
+mapping to Orchestrator.
 
 ### `discovery_status.yml`
 

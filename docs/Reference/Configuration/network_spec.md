@@ -27,11 +27,12 @@ derives its input directory from
 `$OMNIA_DATA_PATH/discovery`. Configure the Discovery copy for node discovery
 and the Orchestrator copy for provisioning.
 
-Discovery currently reads only `admin_network.subnet` and
-`ib_network.subnet`. It uses their first two octets with the last two octets of
-each server's BMC address to derive `ADMIN_IP` and `IB_IP`. The Discovery
-`validate` tag does not validate this file. Orchestrator consumes and validates
-the remaining network fields from its own copy.
+Discovery validates `network_spec.yml` against the same JSON schema used by
+Orchestrator. While Discovery uses only `admin_network.subnet` and
+`ib_network.subnet` for IP derivation (combining their first two octets with
+the last two octets of each server's BMC address), all required fields must be
+present to pass schema validation. Orchestrator consumes and validates the
+remaining network fields from its own copy.
 
 ## Top-level structure
 
