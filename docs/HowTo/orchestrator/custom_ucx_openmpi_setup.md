@@ -20,9 +20,8 @@ compilation scripts.
 - Complete Repository Manager and confirm that `repo_status.yml` reports
   `overall_status: success`.
 - Include a catalog-supported login-compiler functional group in the active
-  project's `pxe_mapping_file.csv`. You can use a Discovery-style name such as
-  `login_compiler_node_aarch64` or a matching catalog-qualified name; the
-  bundled catalog provides `login_compiler_node_rhel_10_0_aarch64`.
+  project's `pxe_mapping_file.csv`. Use the version-qualified name that
+  matches the catalog (e.g., `login_compiler_node_rhel_10_0_aarch64`).
 - Set `slurm_cluster.nfs_storage_name` to a shared-storage entry in
   `storage_config.yml`. To use a separate VAST mount for HPC tools, set the
   optional `vast_storage_name` to that entry; when it is omitted or empty,

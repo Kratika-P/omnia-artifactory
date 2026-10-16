@@ -116,9 +116,9 @@ formatting, is also its directory name under `src/` and the value accepted by
     and stages input templates unless input staging is skipped.
 
 **Functional group**
-:   A named node role selected in the catalog and PXE mapping. The mapping can
-    use a Discovery-style role-and-architecture name, such as
-    `slurm_node_aarch64`, or a matching catalog-qualified name, such as
+:   A named node role selected in the catalog and PXE mapping. The mapping
+    uses version-qualified names following the pattern
+    `<prefix>_rhel_<major>_<minor>_<arch>`, such as
     `slurm_node_rhel_10_0_aarch64`. Image Build Manager builds the corresponding
     images and Orchestrator applies the relevant boot and cluster configuration.
     An explicit OS/version segment must match the active catalog.
