@@ -174,7 +174,7 @@ identified per module and are not deployment procedures.
 |---|---|
 | `repo_manager` | `precheck`, `credentials`, `prepare`/`deploy`, `download`/`execute`, `status`, `cleanup_pulp`/`cleanup`, `cleanup_repos`, and catalog-operation tags |
 | `image_build_manager` | `precheck`, `validate`, `credentials`, `prepare`, `build`/`execute`, `x86_64`, `aarch64`, `cleanup`, `cleanup_images` |
-| `discovery` | `precheck`, `validate`, `credentials`, `execute`, the `discovery` execution alias, `cleanup`, and `cleanup_credentials`; `prepare`, `upgrade`, and `rollback` currently select placeholder flows |
+| `discovery` | `precheck`, `validate`, `credentials`, `execute`, the `discovery` execution alias, `cleanup`, and `cleanup_credentials`; `prepare` currently selects a placeholder flow |
 | `orchestrator` | `precheck`, `validate`, `credentials`, `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, `pxeboot`, `cleanup`, `cleanup_credentials`, and `upgrade`; `rollback` is reserved and unsupported |
 | `telemetry` | `precheck`, `validate`/`validation`/`prepare`, `credentials`, `execute`/`deploy`, `deploy_sinks`, `cleanup`, `cleanup_sinks`, source-specific cleanup tags, `external_kafka`, `external_victoria` |
 | `build_stream` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup` |

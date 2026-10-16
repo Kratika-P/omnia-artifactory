@@ -348,7 +348,7 @@ that value as appropriate before using the mapping as Orchestrator input.
    [assign the discovered servers](#assign-devices-to-ome-static-groups). Use
    an exact supported functional-group name and place each server in no more
    than one Omnia static group. A server without a static-group assignment
-   uses the default functional group.
+   uses the default functional group (slurm_node_rhel_10_0_aarch64).
 
 5. Edit the staged `discovery_config.yml` and configure the OME appliance:
 
@@ -797,10 +797,12 @@ no more than one static group and rerun Discovery.
 
 ### A server is missing from the mapping
 
-Look for a warning that names an unsupported OME static group. Rename the group
-to one of the supported functional-group names or remove the server's static
-group assignment to use the default. The server remains visible in the
-discovery report if OME supplied its service tag.
+Look for a warning that names an unsupported OME static group. The server is
+automatically assigned to the default functional group
+(slurm_node_rhel_10_0_aarch64) with a warning. Rename the group to one of the
+supported functional-group names if you want a specific assignment, or leave
+it to use the default. The server remains visible in the discovery report if
+OME supplied its service tag.
 
 ### The admin MAC address is unexpected or empty
 
