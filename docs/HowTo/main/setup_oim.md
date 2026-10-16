@@ -44,6 +44,8 @@ environment. Use this command to set up the Omnia Infrastructure Manager
       is specified.
     - Creates `/etc/profile.d/omnia-env.sh`.
     - Validates the OIM hostname, domain name, and administrative NIC address.
+      The hostname and admin IP must match the system; domain name mismatch
+      produces a warning.
     - Creates `<OMNIA_DATA_PATH>`, `<OMNIA_DATA_PATH>/.data`, and the virtual
       environment at `OMNIA_VENV_PATH`.
     - Upgrades `pip`, `setuptools`, and `wheel` in the virtual environment.
@@ -51,8 +53,7 @@ environment. Use this command to set up the Omnia Infrastructure Manager
     - Installs the default catalog at `CATALOG_FILE_PATH` only when an active
       catalog does not already exist. Deployment-specific catalogs remain
       available for explicit selection with `--select-catalog`.
-    - Installs `omnia-cli` in `/usr/local/bin` and shared completion for
-      `omnia-cli` and `omnia.sh` in `/etc/bash_completion.d`.
+    - Installs shared Bash completion for `omnia.sh` in `/etc/bash_completion.d`.
 
 3. Use setup options when required:
 
@@ -64,7 +65,6 @@ environment. Use this command to set up the Omnia Infrastructure Manager
     | `--skip <domain,...>` | Skip the modules identified by the listed internal domain names during initialization. |
     | `--dry-run` | Preview the modules that would be initialized. Environment and virtual-environment setup, catalog copying, and other setup operations still run. |
     | `--skip-catalog` | Do not install a missing default catalog. An existing active catalog is always preserved. |
-    | `--skip-omnia-cli` | Do not install `omnia-cli` or shared `omnia-cli`/`omnia.sh` Bash completion. |
 
     For example:
 
@@ -90,7 +90,6 @@ ansible --version
 pip list
 ansible-galaxy collection list
 ls /etc/omnia/omnia.env
-omnia-cli version
 ```
 
 ## Next steps
@@ -107,12 +106,17 @@ omnia-cli version
 
 - **`SYSTEM_ADMIN_NIC_IPV4` is missing or invalid**: Before the first setup,
   set a valid IPv4 address in `src/main/omnia.env`. After setup, update
-  `/etc/omnia/omnia.env`.
+  `/etc/omnia/omnia.env`. Setup validates that the address is actually
+  assigned to a local network interface.
 - **The administrative address is not local**: Select an address assigned to
-  an OIM network interface.
-- **The hostname check fails**: Make `SYSTEM_HOSTNAME` match `hostname -s`. A
-  domain-name mismatch is reported as a warning.
-- **Python is unavailable or older than 3.11**: Install a supported Python
+  an OIM network interface. Setup fails if the address is not found on any
+  local interface.
+- **The hostname check fails**: Make `SYSTEM_HOSTNAME` match `hostname -s`.
+  Setup fails if this value does not match the actual system hostname.
+- **Domain name mismatch**: A mismatch between `SYSTEM_DOMAIN_NAME` and
+  `hostname -d` produces a warning but does not block setup. Fix the domain
+  name or update the system domain if needed.
+- **Python is unavailable or older than 3.12**: Install a supported Python
   version and rerun setup.
 - **Setup was interrupted**: Rerun `./omnia.sh --setup-venv`; Main reports that
   the virtual environment might be incomplete.

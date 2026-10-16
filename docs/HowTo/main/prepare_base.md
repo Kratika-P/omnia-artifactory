@@ -5,7 +5,9 @@
 Use `./omnia.sh --prepare-base` after setting up the Omnia Infrastructure
 Manager (OIM) to validate and prepare the infrastructure required by the core
 deployment workflow. The command processes Repository Manager, Image Build Manager,
-and Orchestrator in that order for each lifecycle phase.
+and Orchestrator in that order for each lifecycle phase. Execution is
+phase-by-phase across all domains, not domain-by-domain. If any domain fails in
+any phase, the command stops immediately (fail-fast behavior).
 
 | Phase | Repository Manager | Image Build Manager | Orchestrator |
 |---|---|---|---|
@@ -177,6 +179,8 @@ For the complete procedures:
   at `$OMNIA_VENV_PATH/bin/activate`.
 - **A domain fails during validation**: Correct that domain's staged input or
   environment values. The failure output identifies the domain and phase.
+  Because execution is phase-by-phase with fail-fast behavior, you must fix
+  the issue and rerun the entire `--prepare-base` command.
 - **A credential phase fails**: Verify the required values and access to the
   domain credential and Vault-key files, then rerun the command.
 - **A service fails during preparation**: Review the applicable log:
@@ -188,7 +192,9 @@ For the complete procedures:
   `image_build_manager`, or `orchestrator`.
 - **Preparation stops after a failure**: Correct the reported problem and
   rerun `./omnia.sh --prepare-base`. The command starts again with validation
-  and safely rechecks already prepared services.
+  and safely rechecks already prepared services. The fail-fast behavior means
+  all phases restart from the beginning, but already prepared services are
+  safely rechecked.
 
 For container, certificate, and connectivity failures, see
 [Base infrastructure preparation failures](../../Troubleshooting/general.md#base-infrastructure-preparation-failures).

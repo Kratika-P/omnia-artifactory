@@ -39,8 +39,9 @@ subsequent setup runs preserve it.
     CATALOG_FILE_PATH=${OMNIA_DATA_PATH}/catalog/catalog_rhel.json
     ```
 
-    `SYSTEM_HOSTNAME` must match the value returned by `hostname -s`. A
-    mismatch between `SYSTEM_DOMAIN_NAME` and `hostname -d` produces a warning.
+    - `SYSTEM_ADMIN_NIC_IPV4` must be an IPv4 address assigned to a local OIM interface.
+    - `SYSTEM_HOSTNAME` must match the value returned by `hostname -s`. Setup validates this and fails if it does not match.
+    - A mismatch between `SYSTEM_DOMAIN_NAME` and `hostname -d` produces a warning but does not block setup.
 
     !!! note
 
@@ -87,8 +88,13 @@ The printed values must match `/etc/omnia/omnia.env`.
 ## Troubleshooting
 
 - **The administrative address is rejected**: Set `SYSTEM_ADMIN_NIC_IPV4` to
-  an IPv4 address assigned to a local OIM interface.
+  an IPv4 address assigned to a local OIM interface. Setup validates that the
+  address is actually present on a local network interface.
 - **Hostname validation fails**: Make `SYSTEM_HOSTNAME` match `hostname -s`.
+  Setup fails if this value does not match the actual system hostname.
+- **Domain name mismatch**: A mismatch between `SYSTEM_DOMAIN_NAME` and
+  `hostname -d` produces a warning but does not block setup. Fix the domain
+  name or update the system domain if needed.
 - **The installed values did not change**: After the first setup, edit
   `/etc/omnia/omnia.env` for normal configuration changes. To intentionally
   replace it with `src/main/omnia.env`, run
