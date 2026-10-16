@@ -104,7 +104,7 @@ not build the Slurm, LDMS, or VAST RPMs. For configuration details, see
 
         Supported values:
 
-        - **Functional group names**: `slurm_control_node_x86_64`, `slurm_node_x86_64`, `slurm_node_aarch64`, `service_kube_control_plane_x86_64`, `service_kube_node_x86_64`, `login_node_x86_64`, `login_node_aarch64`, `login_compiler_node_x86_64`, `login_compiler_node_aarch64`, `os_x86_64`, `os_aarch64`
+        - **Functional group names**: `slurm_control_node_rhel_10_0_x86_64`, `slurm_node_rhel_10_0_x86_64`, `slurm_node_rhel_10_0_aarch64`, `service_kube_control_plane_rhel_10_0_x86_64`, `service_kube_node_rhel_10_0_x86_64`, `login_node_rhel_10_0_x86_64`, `login_node_rhel_10_0_aarch64`, `login_compiler_node_rhel_10_0_x86_64`, `login_compiler_node_rhel_10_0_aarch64`, `os_rhel_10_0_x86_64`, `os_rhel_10_0_aarch64`
         - **Architecture type**: `x86_64` and `aarch64`
         - **OS type**: `RHEL`
         - **OS version**: `10.0`

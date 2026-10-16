@@ -64,14 +64,14 @@ all:
           bmc_ip: "198.51.100.11"
           service_tag: "ABC1234"
           group_name: "grp1"
-    slurm_control_node_x86_64:
+    slurm_control_node_rhel_10_0_x86_64:
       hosts:
         slurm-control-1:
           ansible_host: "192.0.2.20"
           bmc_ip: "198.51.100.20"
           service_tag: "DEF5678"
           group_name: "grp2"
-    slurm_node_x86_64:
+    slurm_node_rhel_10_0_x86_64:
       hosts:
         slurm-node-1:
           ansible_host: "192.0.2.21"

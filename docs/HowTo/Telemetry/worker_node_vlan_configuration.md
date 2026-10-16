@@ -71,7 +71,7 @@ VLAN configuration. They are not settings in a Telemetry input file.
 - Review `bmc_group_data.csv` and identify every unique subnet represented
   in its `BMC_IP` column.
 - Ensure `cluster_inventory` contains
-  `service_kube_node_x86_64.hosts` entries with `ansible_host` values.
+  `service_kube_node_rhel_10_0_x86_64.hosts` entries with `ansible_host` values.
 - Provide common BMC credentials through the Telemetry credential workflow.
 - Enable the Redfish API on each BMC.
 
@@ -108,7 +108,7 @@ VLAN configuration. They are not settings in a Telemetry input file.
 
     ```bash title="Run on: OIM host"
     ansible-inventory -i <cluster_inventory-path> \
-      --graph service_kube_node_x86_64
+      --graph service_kube_node_rhel_10_0_x86_64
     ```
 
     Telemetry tries the first worker, retries unreachable BMCs from the second
