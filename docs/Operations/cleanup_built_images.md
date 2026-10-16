@@ -108,7 +108,7 @@ To target one config-mode functional group, use a more specific pattern:
     ```bash title="Run on: OIM host"
     cd <OMNIA_SOURCE_PATH>/src/main
     ./omnia.sh --run image_build_manager --tags cleanup_images \
-      -e 'cleanup_image_pattern=rhel-os_x86_64*'
+      -e 'cleanup_image_pattern=rhel-os_rhel_10_0_x86_64*'
     ```
 
 === "Using ansible-playbook"
@@ -117,7 +117,7 @@ To target one config-mode functional group, use a more specific pattern:
     source /opt/omnia/activate-omnia.sh
     cd <OMNIA_SOURCE_PATH>/src/image_build_manager/playbooks
     ansible-playbook image_build_manager.yml --tags cleanup_images \
-      -e 'cleanup_image_pattern=rhel-os_x86_64*'
+      -e 'cleanup_image_pattern=rhel-os_rhel_10_0_x86_64*'
     ```
 
 The same pattern can match current artifacts and `_prev` backups. Review the

@@ -39,19 +39,19 @@ before the archive is created.
 3. Add administrative IP addresses under the applicable functional groups:
 
     ```yaml title="collect_pxe.yml"
-    service_kube_control_plane_x86_64:
+    service_kube_control_plane_rhel_10_0_x86_64:
       - 192.0.2.10
-    service_kube_node_x86_64:
+    service_kube_node_rhel_10_0_x86_64:
       - 192.0.2.20
-    slurm_control_node_x86_64:
+    slurm_control_node_rhel_10_0_x86_64:
       - 192.0.2.30
-    slurm_node_x86_64:
+    slurm_node_rhel_10_0_x86_64:
       - 192.0.2.40
-    slurm_node_aarch64:
+    slurm_node_rhel_10_0_aarch64:
       - 192.0.2.41
-    login_node_x86_64:
+    login_node_rhel_10_0_x86_64:
       - 192.0.2.50
-    login_compiler_node_aarch64:
+    login_compiler_node_rhel_10_0_aarch64:
       - 192.0.2.60
     ```
 
@@ -76,7 +76,7 @@ before the archive is created.
         ```
 
 The workflow collects the source-defined Kubernetes or Slurm log paths for
-each node type. It combines `slurm_node_x86_64` and `slurm_node_aarch64` into
+each node type. It combines `slurm_node_rhel_10_0_x86_64` and `slurm_node_rhel_10_0_aarch64` into
 one collection group.
 
 ## Verification
