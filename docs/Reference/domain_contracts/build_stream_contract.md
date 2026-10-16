@@ -116,8 +116,6 @@ missing, a dependent job fails before calling its BSM stage API.
 | `execute` | Deploys and configures GitLab CI/CD. |
 | `build` | Runs both `prepare` and `execute`. |
 | `cleanup` | Removes the GitLab and BuildStreaM infrastructure. |
-| `upgrade` | Runs the current placeholder upgrade flow. |
-| `rollback` | Runs the current placeholder rollback flow. |
 
 ## Related documentation
 

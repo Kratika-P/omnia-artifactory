@@ -187,8 +187,6 @@ The destination can be an absolute local path or a raw NFS export in
 | `cleanup_backup_oim_logs` | Removes all OIM log-backup run directories from the resolved destination. |
 | `cleanup_slurm_config_backups` | Removes all Slurm configuration backup-run directories from the resolved destination. |
 | `cleanup` | Runs log, OS-installation, OIM log-backup, and Slurm configuration backup cleanup. |
-| `upgrade` | Unsupported placeholder; it only prints a message and performs no upgrade. |
-| `rollback` | Unsupported placeholder; it only prints a message and performs no rollback. |
 
 The installation playbook also supports the direct stage tags `credentials`,
 `generate_ks`, `build_iso`, and `deploy`.

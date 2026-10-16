@@ -107,9 +107,6 @@ The domain entry point exposes these lifecycle operations:
 | `external_kafka` | Export Kafka endpoints and client TLS material. |
 | `external_victoria` | Export VictoriaMetrics, VictoriaLogs, and VLAgent connection details. |
 
-The `upgrade` and `rollback` operations are placeholders in the current source
-and do not perform component lifecycle changes.
-
 The source-specific guides include commands for inspecting deployed resources
 and verifying enabled data paths.
 

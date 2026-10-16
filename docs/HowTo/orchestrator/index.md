@@ -31,8 +31,8 @@ repo_status.yml + catalog JSON       build_status.yml       pxe_mapping_file.csv
   `requirements.yml`.
 - Before running a flow that consumes repository content, complete Repository Manager
   and provide a successful `repo_status.yml` and its public certificate. These
-  flows are `precheck`, `provision`, `execute`, `pxeboot`, `upgrade`, and an
-  untagged full run.
+  flows are `precheck`, `provision`, `execute`, `pxeboot`, and an untagged
+  full run.
 - Provide the selected deployment catalog for `precheck`, `credentials`,
   `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, and an
   untagged full run. Orchestrator uses `catalog_file_path` from
@@ -74,7 +74,7 @@ override is configured.
 | Additional cloud-init YAML | Optional | Adds validated common and per-functional-group `write_files` and `runcmd` directives during provisioning. Set its absolute path in `additional_cloud_init_config_file`; `additional_cloud_init.yml` is the example filename. |
 | `set_pxe_boot_config.yml` | Optional for PXE boot | Overrides node-registration timing and PXE-boot settings. |
 | `orchestrator_credentials.yml` and `.orchestrator_credentials_key` | Created or updated by `credentials` and `prepare`; required by later credential-consuming flows | Store encrypted provisioning, BMC, Slurm, OpenLDAP, and PowerScale credentials and the Vault key. |
-| `repo_status.yml` | Required for precheck, provision, execute, PXE boot, upgrade, and full runs | Supplies repository URLs, including the PowerScale CSI artifacts, and the Repository Manager public certificate. |
+| `repo_status.yml` | Required for precheck, provision, execute, PXE boot, and full runs | Supplies repository URLs, including the PowerScale CSI artifacts, and the Repository Manager public certificate. |
 | `build_status.yml` | Required for precheck, provisioning, execute, and full runs | Supplies functional-group images and S3 endpoint information. The standalone `pxeboot` phase does not read this file. |
 | Catalog JSON | Required for precheck, credentials, prepare, deploy, provision, execute, validate-deployment, and full runs | Supplies OS metadata and enables supported services and software. |
 
@@ -167,8 +167,6 @@ The documented combined cleanup is `cleanup,cleanup_credentials`.
 | `pxeboot` | Set the boot source and restart selected Dell iDRAC nodes when PXE boot is enabled. A direct run without `pxeboot_inventory` selects every row in the active PXE mapping; a custom inventory limits the operation to a subset. | Completed provisioning, stored BMC credentials, current mapping and PXE configuration, reachable iDRACs, and successful `repo_status.yml`. The standalone phase does not read `build_status.yml`. |
 | `cleanup` | Remove all enabled Orchestrator components and, by default, the Orchestrator credentials. OpenCHAMI cleanup also removes its managed persistent service volumes. | Review the destructive cleanup scope and data-retention settings first. Use `-e cleanup_credentials=false` with full cleanup to preserve credentials. Component-specific cleanup is available only through the standalone cleanup playbook. |
 | `cleanup_credentials` | Remove the Orchestrator credential file and Vault key. | No deployment or upstream output is required. |
-| `upgrade` | Run the current OpenCHAMI migration and OpenLDAP image-refresh workflows. The operator must verify the resulting package, Quadlet image, and service versions; the workflow does not guarantee every target-version transition. | A supported deployed source version and successful `repo_status.yml`. |
-| `rollback` | Enter the reserved rollback workflows. Both OpenCHAMI and OpenLDAP rollback are unsupported in this release and intentionally stop with an error. | None; this operation is unavailable in this release. |
 
 !!! caution "PXE defaults"
 
@@ -195,8 +193,8 @@ new deployment, the recommended staged order is `validate`, `precheck`,
 An untagged run is also supported, but its order is the literal playbook order:
 shared setup and input validation, functional-group generation, precheck,
 standalone credential collection, preparation, deployment and service
-readiness, provisioning, and conditional PXE boot. Cleanup, upgrade, and
-rollback are tagged `never` and do not run in this mode.
+readiness, provisioning, and conditional PXE boot. Cleanup is tagged `never`
+and does not run in this mode.
 
 ### Deployment and node lifecycle
 
@@ -207,7 +205,6 @@ rollback are tagged `never` and do not run in this mode.
 | [Deploy Slurm](deploy_slurm.md) | Configure Slurm and login functional groups, storage, and Slurm configuration. |
 | [Deploy Kubernetes](deploy_kubernetes.md) | Configure service Kubernetes functional groups, HA, networking, and storage. |
 | [Provision Nodes](provision_nodes.md) | Run the complete or staged provisioning and PXE-boot workflow. |
-| [Upgrade Orchestrator](upgrade_orchestrator.md) | Review the current OpenCHAMI and OpenLDAP upgrade workflow, its automation limits, and the mandatory post-upgrade checks. |
 | [Clean Up Orchestrator](cleanup_orchestrator.md) | Review and run full, credential-only, or component-specific destructive cleanup. |
 | [Add Nodes](../../Operations/add_nodes.md) | Register and configure new nodes, then boot only the new physical nodes through a custom PXE inventory. |
 | [Remove Slurm Nodes](../../Operations/remove_slurm_nodes.md) | Drain and remove Slurm compute nodes omitted from the current PXE mapping. |
@@ -278,8 +275,7 @@ Confirm that the generated artifacts meet the
 - After provisioning, use [Add Nodes](../../Operations/add_nodes.md) and
   [Remove Slurm Nodes](../../Operations/remove_slurm_nodes.md) for supported
   lifecycle changes.
-- Use [Upgrade Orchestrator](upgrade_orchestrator.md) or
-  [Clean Up Orchestrator](cleanup_orchestrator.md) only after reviewing their
+- Use [Clean Up Orchestrator](cleanup_orchestrator.md) only after reviewing its
   lifecycle and data-retention behavior.
 
 ## Troubleshooting

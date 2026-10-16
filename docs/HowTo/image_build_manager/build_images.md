@@ -7,9 +7,9 @@ Omnia's Image Build Manager.
 
 The Image Build Manager can process RHEL 10.x catalog inputs to build boot
 images for diskless cluster nodes. Catalog processing is not a product-support
-classification for every RHEL 10.x point release. The documented validated RC1
-deployment uses RHEL 10.0 on both the OIM and cluster nodes, as listed in the
-[Operating Systems Matrix](../../Reference/SupportMatrix/operating_systems.md).
+classification for every RHEL 10.x point release. The documented validated
+deployment uses RHEL 10.0 and RHEL 10.2 on both the OIM and cluster nodes, as
+listed in the [Operating Systems Matrix](../../Reference/SupportMatrix/operating_systems.md).
 Image Build Manager can build images with either OpenCHAMI `image-builder` or
 `image-thrillhouse`.
 
@@ -280,7 +280,7 @@ union for every discovered version. Layers named
         ```yaml title="Edit the existing package_groups.yml (fragment)"
         # Keep the shipped os, os_version, and base_packages entries.
         functional_groups:
-          slurm_node_x86_64:
+          slurm_node_rhel_10_0_x86_64:
             packages:
               - munge
               - slurm-slurmd
@@ -471,10 +471,10 @@ union for every discovered version. Layers named
       bucket: "boot-images"
     functional_group_images:
       - x86_64:
-          - functional_group: "slurm_node_x86_64"
-            kernel: "boot-images/slurm_node_x86_64/<image-name>-imgth/10.0/vmlinuz"
-            initrd: "boot-images/slurm_node_x86_64/<image-name>-imgth/10.0/initramfs.img"
-            image: "boot-images/slurm_node_x86_64/<image-name>-imgth/10.0/rootfs.squashfs"
+          - functional_group: "slurm_node_rhel_10_0_x86_64"
+            kernel: "boot-images/slurm_node_rhel_10_0_x86_64/<image-name>-imgth/10.0/vmlinuz"
+            initrd: "boot-images/slurm_node_rhel_10_0_x86_64/<image-name>-imgth/10.0/initramfs.img"
+            image: "boot-images/slurm_node_rhel_10_0_x86_64/<image-name>-imgth/10.0/rootfs.squashfs"
     ```
 
     For `image-builder`, the kernel and initrd paths use the
