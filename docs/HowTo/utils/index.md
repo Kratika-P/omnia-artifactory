@@ -68,9 +68,8 @@ Run Utils workflows through the OIM domain launcher:
 
     Running `./omnia.sh --run utils` without a tag performs Utils setup only.
     It does not collect or back up logs, manage Slurm configuration, or install
-    an operating system. The `upgrade` and `rollback` tags are placeholders in
-    the current source and do not perform lifecycle operations. The supported
-    Slurm restore operation is `slurm_config_rollback`.
+    an operating system. The supported Slurm restore operation is
+    `slurm_config_rollback`.
 
 !!! danger
 

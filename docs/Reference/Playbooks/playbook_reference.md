@@ -45,7 +45,7 @@ for `execute`.
 | BuildStreaM | `src/build_stream/playbooks/build_stream.yml` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup` | [How-to guide](../../HowTo/build_stream/index.md) · [Contract](../domain_contracts/build_stream_contract.md) |
 | Discovery | `src/discovery/playbooks/discovery.yml` | `precheck`, `validate`, `credentials`, `execute`, `cleanup`, `cleanup_credentials` | [How-to guide](../../HowTo/discovery/index.md) · [Contract](../domain_contracts/discovery_contract.md) |
 | Image Build Manager | `src/image_build_manager/playbooks/image_build_manager.yml` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup`, `cleanup_images` | [How-to guide](../../HowTo/image_build_manager/index.md) · [Contract](../domain_contracts/image_build_manager_contract.md) |
-| Orchestrator | `src/orchestrator/playbooks/orchestrator.yml` | `precheck`, `validate`, `credentials`, `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, `pxeboot`, `cleanup`, `cleanup_credentials`, `upgrade`; `rollback` is reserved and unsupported | [How-to guide](../../HowTo/orchestrator/index.md) · [Contract](../domain_contracts/orchestrator_contract.md) |
+| Orchestrator | `src/orchestrator/playbooks/orchestrator.yml` | `precheck`, `validate`, `credentials`, `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, `pxeboot`, `cleanup`, `cleanup_credentials` | [How-to guide](../../HowTo/orchestrator/index.md) · [Contract](../domain_contracts/orchestrator_contract.md) |
 | Repository Manager | `src/repo_manager/playbooks/repo_manager.yml` | `precheck`, `credentials`, `prepare`, `deploy`, `execute`, `download`, `status`, `cleanup`, `cleanup_pulp`, `cleanup_repos`, `catalog_generate`, `catalog_add`, `catalog_delete`, `catalog_validate` | [How-to guide](../../HowTo/repo_manager/index.md) · [Contract](../domain_contracts/repo_manager_contract.md) |
 | Telemetry | `src/telemetry/playbooks/telemetry.yml` | `precheck`, `validate`, `validation`, `prepare`, `credentials`, `execute`, `deploy`, `deploy_sinks`, `cleanup`, `cleanup_sinks`, `cleanup_idrac`, `cleanup_ldms`, `cleanup_ome`, `cleanup_powerscale`, `cleanup_ufm`, `cleanup_vast`, `external_kafka`, `external_victoria` | [How-to guide](../../HowTo/Telemetry/index.md) · [Contract](../domain_contracts/telemetry_contract.md) |
 | Utils | `src/utils/playbooks/utils.yml` | `precheck`, `setup`, `collect`, `install_os`, `backup_oim_logs`, `slurm_config_backup`, `slurm_config_cleanup`, `slurm_config_rollback`, `cleanup`, `cleanup_logs`, `cleanup_install_os`, `cleanup_backup_oim_logs`, `cleanup_slurm_config_backups` | [How-to guide](../../HowTo/utils/index.md) · [Contract](../domain_contracts/utils_contract.md) |
@@ -54,15 +54,8 @@ The following accepted lifecycle tags are placeholders and do not perform the
 named operation:
 
 - Discovery: `prepare`.
-- BuildStreaM: `upgrade` and `rollback`.
-- Image Build Manager: `upgrade` and `rollback`.
-- Repository Manager: `upgrade` and `rollback`.
-- Telemetry: `upgrade` and `rollback`.
-- Utils: `upgrade` and `rollback`.
 
-Orchestrator's `rollback` operation is reserved and intentionally fails because
-rollback is unsupported. Do not use a placeholder operation as a deployment
-step.
+Do not use a placeholder operation as a deployment step.
 
 Utils is an on-demand utility module and does not define the standard domain
 lifecycle operations `credentials`, `prepare`, or `execute`. Validation is

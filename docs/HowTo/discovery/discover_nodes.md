@@ -858,8 +858,3 @@ records `failed_task` and `failure_reason`. Setup, validation, or credential
 failures can leave that file absent or unchanged from a previous run. For all
 phases, inspect the Ansible output and
 `/var/log/omnia/discovery/discovery.log`.
-
-### Discovery is blocked by an upgrade lock
-
-Complete the Omnia upgrade before rerunning Discovery. The workflow does not
-run normally while `/opt/omnia/.data/upgrade_in_progress.lock` exists.

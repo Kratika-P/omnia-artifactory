@@ -19,9 +19,7 @@ prerequisite phases automatically.
 | `validate-deployment` | Yes | No | No | Complete valid project inputs, generated functional-group state, `$OMNIA_DATA_PATH/openchami/configs_vars.yaml`, and a healthy deployed OpenCHAMI instance capable of issuing a fresh access token |
 | `pxeboot` | No | Successful | No | Completed provisioning, stored BMC credentials, and reachable mapped iDRACs |
 
-Cleanup and credential cleanup do not require upstream status files. Upgrade
-requires a supported deployed source version and successful
-`repo_status.yml`; rollback is unavailable in this release.
+Cleanup and credential cleanup do not require upstream status files.
 
 The standalone `validate-deployment` preamble reloads persisted cluster state,
 obtains a fresh OpenCHAMI token, and can ensure the cluster-hostname entry in
@@ -309,27 +307,10 @@ cleanup. OpenCHAMI cleanup uninstalls the `openchami` and `ochami` RPMs and
 permanently removes the `boot-service-data`, `metadata-service-data`, and
 `postgres-data` Podman volumes.
 
-### Upgrade and rollback
-
-The `upgrade` tag runs the current OpenCHAMI and OpenLDAP upgrade workflows. The
-OpenCHAMI workflow detects the installed package, targets the `0.1.7-1` to
-`0.2.0-1` migration, creates a timestamped backup, removes legacy services when
-present, pulls configured images, restarts services, and performs health
-checks. It does not install or verify a target OpenCHAMI RPM. The OpenLDAP
-workflow pulls image tag `1.2` and restarts an existing `omnia_auth` service,
-but does not rewrite a fixed-image Quadlet. Operators must verify the installed
-package, configured image, and running service versions after either workflow.
-OpenLDAP is skipped when its container is absent.
-
-The `rollback` tag is reserved. Both current component rollback playbooks
-intentionally fail with `ROLLBACK NOT SUPPORTED`; the OpenCHAMI upgrade backup
-does not provide an automated rollback path.
-
 ## Related documentation
 
 - [Orchestrator](../../HowTo/orchestrator/index.md)
 - [Provision nodes](../../HowTo/orchestrator/provision_nodes.md)
-- [Upgrade Orchestrator](../../HowTo/orchestrator/upgrade_orchestrator.md)
 - [Clean up Orchestrator](../../HowTo/orchestrator/cleanup_orchestrator.md)
 - [Repository Manager contract](repo_manager_contract.md)
 - [Image Build Manager contract](image_build_manager_contract.md)

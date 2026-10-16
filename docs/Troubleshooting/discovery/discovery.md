@@ -121,13 +121,6 @@ status file is updated, so an existing file can describe an earlier run.
       empty](../../HowTo/discovery/discover_nodes.md#the-admin-mac-address-is-unexpected-or-empty)
       for the detailed verification sequence.
 
-## Discovery is blocked by the upgrade lock
-
-???+ note "Resolution"
-
-    Complete the Omnia upgrade before rerunning Discovery. Normal execution is
-    blocked while `/opt/omnia/.data/upgrade_in_progress.lock` exists.
-
 !!! info "Related documentation"
 
     - [Discover nodes using OME](../../HowTo/discovery/discover_nodes.md)

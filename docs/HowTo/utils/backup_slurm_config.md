@@ -15,11 +15,6 @@ Run one operation tag at a time:
 | Restore a stored configuration | `slurm_config_rollback` |
 | Delete all stored configuration backups | `cleanup_slurm_config_backups` |
 
-!!! note
-
-    The Utils lifecycle tag `rollback` is a placeholder. Use
-    `slurm_config_rollback` to restore a Slurm configuration backup.
-
 ## Prerequisites
 
 - Complete the [OIM setup](../main/setup_oim.md).

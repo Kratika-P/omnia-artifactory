@@ -297,9 +297,7 @@ precheck, deployment, cleanup, and the two external connection exports.
 `credentials` collects only credentials required by enabled sources.
 `prepare`, `validate`, and `validation` run input validation and credential
 collection. The untagged flow runs setup, validation, and deployment; it does
-not select the opt-in `credentials` play. The `upgrade` and `rollback`
-operations are placeholders in the current source and do not perform lifecycle
-changes.
+not select the opt-in `credentials` play.
 
 ## Related documentation
 

@@ -95,18 +95,18 @@ domain operation.
 
 | Domain | Public tags |
 |---|---|
-| `build_stream` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup`, `upgrade`, `rollback` |
+| `build_stream` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup` |
 | `discovery` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `cleanup`, `cleanup_credentials` |
-| `image_build_manager` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup`, `cleanup_images`, `upgrade`, `rollback` |
-| `orchestrator` | `precheck`, `validate`, `credentials`, `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, `pxeboot`, `cleanup`, `cleanup_credentials`, `upgrade`, `rollback` |
-| `repo_manager` | `precheck`, `credentials`, `prepare`, `deploy`, `execute`, `download`, `status`, `cleanup`, `cleanup_pulp`, `cleanup_repos`, `upgrade`, `rollback`, `catalog_generate`, `catalog_add`, `catalog_delete`, `catalog_validate` |
-| `telemetry` | `precheck`, `validate`, `validation`, `prepare`, `credentials`, `execute`, `deploy`, `deploy_sinks`, `cleanup`, `cleanup_sinks`, `cleanup_idrac`, `cleanup_ldms`, `cleanup_ome`, `cleanup_powerscale`, `cleanup_ufm`, `cleanup_vast`, `upgrade`, `rollback`, `external_kafka`, `external_victoria` |
-| `utils` | `precheck`, `setup`, `collect`, `install_os`, `backup_oim_logs`, `slurm_config_backup`, `slurm_config_cleanup`, `slurm_config_rollback`, `cleanup`, `cleanup_logs`, `cleanup_install_os`, `cleanup_backup_oim_logs`, `cleanup_slurm_config_backups`, `upgrade`, `rollback` |
+| `image_build_manager` | `precheck`, `validate`, `credentials`, `prepare`, `execute`, `build`, `cleanup`, `cleanup_images` |
+| `orchestrator` | `precheck`, `validate`, `credentials`, `prepare`, `deploy`, `provision`, `execute`, `validate-deployment`, `pxeboot`, `cleanup`, `cleanup_credentials` |
+| `repo_manager` | `precheck`, `credentials`, `prepare`, `deploy`, `execute`, `download`, `status`, `cleanup`, `cleanup_pulp`, `cleanup_repos`, `catalog_generate`, `catalog_add`, `catalog_delete`, `catalog_validate` |
+| `telemetry` | `precheck`, `validate`, `validation`, `prepare`, `credentials`, `execute`, `deploy`, `deploy_sinks`, `cleanup`, `cleanup_sinks`, `cleanup_idrac`, `cleanup_ldms`, `cleanup_ome`, `cleanup_powerscale`, `cleanup_ufm`, `cleanup_vast`, `external_kafka`, `external_victoria` |
+| `utils` | `precheck`, `setup`, `collect`, `install_os`, `backup_oim_logs`, `slurm_config_backup`, `slurm_config_cleanup`, `slurm_config_rollback`, `cleanup`, `cleanup_logs`, `cleanup_install_os`, `cleanup_backup_oim_logs`, `cleanup_slurm_config_backups` |
 
 Running a domain without `--tags` starts that domain's default flow. Defaults
 are domain-specific. Tags marked `never` in a domain playbook run only when
 explicitly selected, and invalid tags or combinations fail validation. Review
-the relevant domain guide before running cleanup, upgrade, or rollback tags.
+the relevant domain guide before running cleanup tags.
 
 ### Recommended execution order
 
