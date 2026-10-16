@@ -288,6 +288,34 @@ Issues related to BuildStreaM pipeline execution, GitLab integration, catalog va
     3. Require successful aggregate, orphan-cleanup, synchronization, and
        cleanup states; zero stale packages; and valid package counters.
 
+## Cadence Builds Using Cached Builds
+
+???+ note "Symptom"
+
+    Cadence builds are using cached builds instead of performing full builds.
+
+??? note "Cause"
+
+    The `force_rebuild` parameter in `image_build_config.yml` within GitLab is not set to `True`.
+
+??? note "Resolution"
+
+    The cadence pipeline is designed to execute full builds rather than differential builds. Verify that the `force_rebuild` parameter in `image_build_config.yml` within GitLab is set to `True`.
+
+## aarch64 Build Node Resource Conflicts
+
+???+ note "Symptom"
+
+    Cadence pipeline encounters resource conflicts when building catalogs containing aarch64 functional groups.
+
+??? note "Cause"
+
+    The same node is used for both building aarch64 images and provisioning, or a dedicated aarch64 node is not available in diskful state with the appropriate OS.
+
+??? note "Resolution"
+
+    For catalogs containing aarch64 functional groups, a dedicated aarch64 node must be provisioned for building aarch64 images. If the same node is used for both image building and provisioning, the cadence pipeline will encounter resource conflicts. When a dedicated node is not available, ensure that before the periodic cadence run is triggered, an aarch64 node is available in diskful state with the appropriate OS for building aarch64 images in the subsequent pipeline.
+
 !!! info
 
     - [BuildStreaM](../../HowTo/build_stream/index.md) -- BuildStreaM and GitLab deployment procedures
